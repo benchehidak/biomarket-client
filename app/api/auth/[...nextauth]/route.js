@@ -47,7 +47,7 @@ export const authOptions = {
     }
   },
   pages: {
-    signIn: '/signin',
+    signIn: '/login',
   },
   adapter: PrismaAdapter(prisma),
   session: {

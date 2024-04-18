@@ -20,6 +20,7 @@ import { CSSTransition } from "react-transition-group";
 import styles from "./NavStoreUi.module.css";
 import { useEffect } from "react";
 import Link from "next/link";
+import axios from "axios";
 // import { redirect } from "next/navigation";
 // import { NextURL } from "next/dist/server/web/next-url";
 
@@ -47,136 +48,137 @@ const actionItems = [
   },
 ];
 
-const bannerDetails = {
-  image:
-    "https://storage.googleapis.com/sfui_docs_artifacts_bucket_public/production/watch.png",
-  title: "New in designer watches",
-};
+// const bannerDetails = {
+//   image:
+//     "https://storage.googleapis.com/sfui_docs_artifacts_bucket_public/production/watch.png",
+//   title: "New in designer watches",
+// };
 
-const categoriesContent = [
-  {
-    heading: "Women",
-    items: [
-      {
-        title: "All Women's",
-        link: "#",
-      },
-      {
-        title: "Clothing",
-        link: "#",
-      },
-      {
-        title: "Shoes",
-        link: "#",
-      },
-      {
-        title: "Accessories",
-        link: "#",
-      },
-      {
-        title: "Wearables",
-        link: "#",
-      },
-      {
-        title: "Food & Drinks",
-        link: "#",
-      },
-    ],
-  },
-  {
-    heading: "Women",
-    items: [
-      {
-        title: "All Women's",
-        link: "#",
-      },
-      {
-        title: "Clothing",
-        link: "#",
-      },
-      {
-        title: "Shoes",
-        link: "#",
-      },
-      {
-        title: "Accessories",
-        link: "#",
-      },
-      {
-        title: "Wearables",
-        link: "#",
-      },
-      {
-        title: "Food & Drinks",
-        link: "#",
-      },
-    ],
-  },
-  {
-    heading: "Men",
-    items: [
-      {
-        title: "All Men’s",
-        link: "#",
-      },
-      {
-        title: "Clothing",
-        link: "#",
-      },
-      {
-        title: "Shoes",
-        link: "#",
-      },
-      {
-        title: "Accessories",
-        link: "#",
-      },
-      {
-        title: "Wearables",
-        link: "#",
-      },
-      {
-        title: "Food & Drinks",
-        link: "#",
-      },
-    ],
-  },
-  {
-    heading: "Kids",
-    items: [
-      {
-        title: "All Kids",
-        link: "#",
-      },
-      {
-        title: "Clothing",
-        link: "#",
-      },
-      {
-        title: "Shoes",
-        link: "#",
-      },
-      {
-        title: "Accessories",
-        link: "#",
-      },
-      {
-        title: "Wearables",
-        link: "#",
-      },
-      {
-        title: "Food & Drinks",
-        link: "#",
-      },
-    ],
-  },
-];
+// const categoriesContent = [
+//   {
+//     heading: "Women",
+//     items: [
+//       {
+//         title: "All Women's",
+//         link: "#",
+//       },
+//       {
+//         title: "Clothing",
+//         link: "#",
+//       },
+//       {
+//         title: "Shoes",
+//         link: "#",
+//       },
+//       {
+//         title: "Accessories",
+//         link: "#",
+//       },
+//       {
+//         title: "Wearables",
+//         link: "#",
+//       },
+//       {
+//         title: "Food & Drinks",
+//         link: "#",
+//       },
+//     ],
+//   },
+//   {
+//     heading: "Women",
+//     items: [
+//       {
+//         title: "All Women's",
+//         link: "#",
+//       },
+//       {
+//         title: "Clothing",
+//         link: "#",
+//       },
+//       {
+//         title: "Shoes",
+//         link: "#",
+//       },
+//       {
+//         title: "Accessories",
+//         link: "#",
+//       },
+//       {
+//         title: "Wearables",
+//         link: "#",
+//       },
+//       {
+//         title: "Food & Drinks",
+//         link: "#",
+//       },
+//     ],
+//   },
+//   {
+//     heading: "Men",
+//     items: [
+//       {
+//         title: "All Men’s",
+//         link: "#",
+//       },
+//       {
+//         title: "Clothing",
+//         link: "#",
+//       },
+//       {
+//         title: "Shoes",
+//         link: "#",
+//       },
+//       {
+//         title: "Accessories",
+//         link: "#",
+//       },
+//       {
+//         title: "Wearables",
+//         link: "#",
+//       },
+//       {
+//         title: "Food & Drinks",
+//         link: "#",
+//       },
+//     ],
+//   },
+//   {
+//     heading: "Kids",
+//     items: [
+//       {
+//         title: "All Kids",
+//         link: "#",
+//       },
+//       {
+//         title: "Clothing",
+//         link: "#",
+//       },
+//       {
+//         title: "Shoes",
+//         link: "#",
+//       },
+//       {
+//         title: "Accessories",
+//         link: "#",
+//       },
+//       {
+//         title: "Wearables",
+//         link: "#",
+//       },
+//       {
+//         title: "Food & Drinks",
+//         link: "#",
+//       },
+//     ],
+//   },
+// ];
 
 export default function BaseMegaMenu() {
   const { close, toggle, isOpen } = useDisclosure();
   const drawerRef = useRef(null);
   const menuRef = useRef(null);
   const [inputValue, setInputValue] = useState("");
+  const [categories, setCategories] = useState([]);
 
   useTrapFocus(drawerRef, {
     activeState: isOpen,
@@ -204,6 +206,21 @@ export default function BaseMegaMenu() {
       setDesktop(window.innerWidth);
     });
   }, []);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const response = await axios.post(
+        "/api/categories/getallcategories",
+        {}
+      );
+      setCategories(response.data.categories);
+      console.log(response.data, "categories");
+    }
+    fetchCategories();
+  }
+  , []);
+
+
 
   return (
     <div className="w-full h-full bg-[#3bb77e]">
@@ -307,36 +324,36 @@ export default function BaseMegaMenu() {
                         <SfIconClose />
                       </SfButton>
                     </div>
-                    {categoriesContent.map(({ heading, items }) => (
+                    {/* {categoriesContent.map(({ heading, items }) => ( */}
                       <div
-                        key={heading}
+                        // key={heading}
                         className="[&:nth-child(2)]:pt-0 pt-6 md:pt-0"
                       >
                         <h2
                           role="presentation"
                           className="typography-text-base font-medium text-neutral-900 whitespace-nowrap p-4 md:py-1.5"
                         >
-                          {heading}
+                          Categories
                         </h2>
                         <hr className="mb-3.5" />
                         <ul>
                           {
-                          items.map((item) => (
-                            <li key={item.title}>
+                          categories?.map((item) => (
+                            <li key={item.id_cat}>
                               <SfListItem
                                 as="a"
                                 size="sm"
                                 role="none"
-                                href={item.link}
+                                href={`/search/${item.id_cat}`}
                                 className="typography-text-base md:typography-text-sm py-4 md:py-1.5"
                               >
-                                {item.title}
+                                {item.nom}
                               </SfListItem>
                             </li>
                           ))}
                         </ul>
                       </div>
-                    ))}
+                    {/* ))} */}
                     {/* <div className="flex flex-col items-center justify-center overflow-hidden md:rounded-md bg-neutral-100 border-neutral-300 grow">
                       <img
                         src={bannerDetails.image}

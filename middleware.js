@@ -14,5 +14,5 @@ export { default } from 'next-auth/middleware'
 //   }
 // })
 
-export const config = { matcher: [ '/account/:path*','/api/protected/:path*', ], debug: true,}
+export const config = { matcher: [ '/account/:path*','/api/protected/:path*', '/shop-checkout', ], debug: true,}
 //'/api/protected/:path*'

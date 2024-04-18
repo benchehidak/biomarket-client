@@ -9,7 +9,7 @@ export default (searchTerm,products) => {
 
     for (let index = 0; index < products.length; index++) {
         const product = products[index];
-        const isMatched = matchWordList(product.title,words)
+        const isMatched = matchWordList(product.title,words) ||product.categories[0] == searchTerm ;
         if(isMatched) list.push(product)
     }
 

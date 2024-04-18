@@ -80,14 +80,14 @@ const ProductDetails = ({
                                         <div className="detail-info  pr-30 pl-30">
                                             {/* <span className="stock-status out-stock"> Sale Off </span> */}
                                             <h2 className="title-detail">{product.title}</h2>
-                                            <div className="product-detail-rating">
+                                            {/* <div className="product-detail-rating">
                                                 <div className="product-rate-cover text-end">
                                                     <div className="product-rate d-inline-block">
                                                         <div className="product-rating" style={{ width: "90%" }}></div>
                                                     </div>
                                                     <span className="font-small ml-5 text-muted"> (32 reviews)</span>
                                                 </div>
-                                            </div>
+                                            </div> */}
                                             <div className="clearfix product-price-cover">
                                                 <div className="product-price primary-color float-left">
                                                     <span className="current-price  text-brand">{product.price} TND</span>
@@ -128,15 +128,18 @@ const ProductDetails = ({
                                                 </div>
                                             </div>
                                             <ul className="product-meta font-xs color-grey mt-50">
-                                                <li className="mb-5">
+                                                {/* <li className="mb-5">
                                                     SKU:
                                                     <a href="#">FWM15VKT</a>
-                                                </li>
+                                                </li> */}
                                                 <li className="mb-5">
-                                                    Tags:
-                                                    <a href="#" rel="tag" className="me-1">
-                                                        Cloth,
-                                                    </a>
+                                                    Tags:{" "}
+                                                    {product?.tags?.map((tag, index) => (
+                                                        <a key={index} href="#">
+                                                            {tag} {" "}
+                                                        </a>
+                                                        
+                                                    ))}
                                                 </li>
                                                 <li>
                                                     Availability:
@@ -150,7 +153,7 @@ const ProductDetails = ({
                                 {quickView ? null : (
                                     <> 
                                         <ProductTab prodid={productId} />
-                                        <div className="row mt-60">
+                                        {/* <div className="row mt-60">
                                             <div className="col-12">
                                                 <h3 className="section-title style-1 mb-30">Related products</h3>
                                             </div>
@@ -159,7 +162,7 @@ const ProductDetails = ({
                                                     <RelatedSlider />
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> */}
                                     </>
                                 )}
                             </div>

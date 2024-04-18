@@ -104,7 +104,7 @@ const SingleProduct = ({
                         </Link>
                     </h2>
 
-                    <div className="product-rate-cover">
+                    {/* <div className="product-rate-cover">
                         <div className="product-rate d-inline-block">
                             <div
                                 className="product-rating"
@@ -115,13 +115,13 @@ const SingleProduct = ({
                             {" "}
                             ({product.ratingScore})
                         </span>
-                    </div>
+                    </div> */}
 
-                    <div>
+                    {/* <div>
                         <span className="font-small text-muted">
                             By <Link href="/vendor/1"><div>NestFood</div></Link>
                         </span>
-                    </div>
+                    </div> */}
 
                     <div className="product-card-bottom">
                         <div className="product-price">
