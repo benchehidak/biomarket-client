@@ -3,6 +3,7 @@ import React from 'react';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Invoice from '@/components/invoice/invoice';
+import Preloader from '@/components/Layout/loader';
 
 
 export default function page({params}) {
@@ -36,6 +37,7 @@ export default function page({params}) {
 
     }
     , [orderid]);
+    if (loading) return <Preloader />;
   return (
     <div>
         <Invoice order={data}/>

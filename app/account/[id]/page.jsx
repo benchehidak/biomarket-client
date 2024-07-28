@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { signOut } from "next-auth/react";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import Preloader from "@/components/Layout/loader";
 
 
 function Account({params}) {
@@ -67,7 +68,7 @@ function Account({params}) {
         
     }
     , [sess]);
-    if (loading) return <div>Loading...</div>;
+    if (loading) return <Preloader />;
     if (error) return <div>Error: {error}</div>;
 
 
@@ -82,11 +83,11 @@ function Account({params}) {
                                     <div className="col-md-3">
                                         <div className="dashboard-menu">
                                             <ul className="nav flex-column" role="tablist">
+                                                {/* <li className="nav-item">
+                                                    <a className={activeIndex == 2 ? "nav-link active" : "nav-link"} onClick={() => handleOnClick(1)}><i className="fi-rs-settings-sliders mr-10"></i>Dashboard</a>
+                                                </li> */}
                                                 <li className="nav-item">
-                                                    <a className={activeIndex == 1 ? "nav-link active" : "nav-link"} onClick={() => handleOnClick(1)}><i className="fi-rs-settings-sliders mr-10"></i>Dashboard</a>
-                                                </li>
-                                                <li className="nav-item">
-                                                    <a className={activeIndex == 2 ? "nav-link active" : "nav-link"}  onClick={() => handleOnClick(2)}><i className="fi-rs-shopping-bag mr-10"></i>Orders</a>
+                                                    <a className={activeIndex == 1 ? "nav-link active" : "nav-link"}  onClick={() => handleOnClick(2)}><i className="fi-rs-shopping-bag mr-10"></i>Orders</a>
                                                 </li>
                                                 {/* <li className="nav-item">
                                                     <a className={activeIndex == 3 ? "nav-link active" : "nav-link"}  onClick={() => handleOnClick(3)}><i className="fi-rs-shopping-cart-check mr-10"></i>Track Your Order</a>
@@ -105,7 +106,7 @@ function Account({params}) {
                                     </div>
                                     <div className="col-md-9">
                                         <div className="tab-content account dashboard-content pl-50">
-                                            <div className={activeIndex == 1 ? "tab-pane fade active show" : "tab-pane fade "} >
+                                            <div className={activeIndex == 2 ? "tab-pane fade active show" : "tab-pane fade "} >
                                                 <div className="card">
                                                     <div className="card-header">
                                                         <h3 className="mb-0">Hello Rosie!</h3>
@@ -118,7 +119,7 @@ function Account({params}) {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className={activeIndex == 2 ? "tab-pane fade active show" : "tab-pane fade "} >
+                                            <div className={activeIndex == 1 ? "tab-pane fade active show" : "tab-pane fade "} >
                                                 <div className="card">
                                                     <div className="card-header">
                                                         <h3 className="mb-0">Your Orders</h3>

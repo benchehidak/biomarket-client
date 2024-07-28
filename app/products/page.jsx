@@ -35,7 +35,7 @@ const Products = ({ products, productFilters, fetchProduct }) => {
     cratePagination();
     setTimeout(() => {
       setLoading(false);
-    }, 2500);
+    }, 4000);
   }, [productFilters, limit, pages, products.items.length]);
 
   const cratePagination = () => {
@@ -115,7 +115,10 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                     <SingleProduct product={item} />
                     {/* <SingleProductList product={item}/> */}
                   </div>
-                ))}
+                ))
+                
+                }
+                
                 {}
               </div>
 
